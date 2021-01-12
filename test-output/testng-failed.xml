@@ -3,14 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.michaels.testcases.TestStoreFilter">
+      <class name="com.michaels.testcases.TestContactMenu">
         <methods>
           <include name="terminate"/>
-          <include name="storeList"/>
           <include name="getReady"/>
-          <include name="filtercheckboxesVisibility"/>
+          <include name="testContact"/>
         </methods>
-      </class> <!-- com.michaels.testcases.TestStoreFilter -->
+      </class> <!-- com.michaels.testcases.TestContactMenu -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

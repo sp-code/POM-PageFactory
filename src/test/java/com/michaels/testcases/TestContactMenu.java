@@ -19,7 +19,7 @@ public class TestContactMenu extends Base{
 	public void getReady()
 	{
 		init();
-		slpage = new StoreLocatorPage(dr);
+		slpage = new StoreLocatorPage();
 	}
 	
 	@Test(priority=1)

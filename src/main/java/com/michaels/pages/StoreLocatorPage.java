@@ -3,74 +3,103 @@ package com.michaels.pages;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
 
 import com.michaels.base.Base;
 
 public class StoreLocatorPage extends Base{
 
-	WebDriver dr;
+	
 
-	By filterbtn = By.xpath("//*[@id=\"locator_search\"]/button");
+	@FindBy(xpath="//*[@id='locator_search']/button")
+	WebElement filterbtn;
+	
 
-	By search = By.xpath("//input[@id='search_input']");
+	@FindBy(xpath="//input[@id='search_input']")
+	WebElement search;	
+	
 
-	By storefilters = By.xpath("//div[@id='store_filters']/div/label");
+	@FindBy(xpath="//div[@id='store_filters']/div/label")
+	List<WebElement> storefilters;
+	
 
-	By donebtn = By.xpath("//button[@class='setFilters']");
+	@FindBy(xpath="//button[@class='setFilters']")
+	WebElement donebtn;
+	
+	
+	@FindBy(xpath="//div[@id='store_filters']/div[2]")
+	WebElement checkbox2;
+	
 
-	By checkbox2 = By.xpath("//div[@id='store_filters']/div[2]");
+	@FindBy(xpath="//div[@id='store_filters']/div[3]")
+	WebElement checkbox4;
+	
 
-	By checkbox4 = By.xpath("//div[@id='store_filters']/div[3]");
+	@FindBy(xpath="//li[@class='poi-item']/div/div/div/h5")
+	List<WebElement> storelist;
+	
 
-	By storelist = By.xpath("//li[@class='poi-item']/div/div/div/h5");
 
-	/* store information (SAN JOSE MARKETCENTER) */
+	@FindBy(xpath="//li[@class='poi-item']/div/div/div/h5")
+	WebElement store_name;
+	
 
-	By store_name = By.xpath("//li[@class='poi-item']/div/div/div/h5");
+	@FindBy(xpath="//a[@class='store_link']")
+	WebElement store_link;
+	
+	
+	@FindBy(xpath="//button[@class='hours_toggle']")
+	WebElement open_days_btn;
+	
 
-	By store_link = By.xpath("//a[@class='store_link']");
+	@FindBy(xpath="//div[@class='hours_inner']/div/span[1]")
+	List<WebElement> all_days;
 
-	By open_days_btn = By.xpath("//button[@class='hours_toggle']");
-
-	By all_days = By.xpath("//div[@class='hours_inner']/div/span[1]");
 
 	/* Contact */
-	By contact = By.xpath("//div[@class='static-content-leftnav']/ul/li");
-
-	By getDirection = By.xpath("//a[@class='directions_link']");
-
-	By storeAddress = By.xpath("//div[@class='address-wrapper']");
-	
-	By visit_store_page = By.xpath("//a[@class='store_link']");
-	
-	
-	By phone = By.xpath("//a[@class='store-phone']");
-	
-	
+	@FindBy(xpath="//div[@class='static-content-leftnav']/ul/li")
+	List<WebElement> contact;
 	
 
-	public StoreLocatorPage(WebDriver dr) {
-		this.dr = dr;
+	@FindBy(xpath="//a[@class='directions_link']")
+	WebElement getDirection;
+	
+	
+	@FindBy(xpath="//div[@class='address-wrapper']")
+	WebElement storeAddress;
+	
+	
+	@FindBy(xpath="//a[@class='store_link']")
+	WebElement visit_store_page;
+	
+	
+	@FindBy(xpath="//a[@class='store-phone']")
+	WebElement phone;
+	
+
+	public StoreLocatorPage() {
+		//this.dr = dr;
+		PageFactory.initElements(dr,this);
 	}
 
 	public boolean locateFilterButton() throws InterruptedException {
 
-		return dr.findElement(filterbtn).isDisplayed();
+		return filterbtn.isDisplayed();
 
 	}
 
 	public ArrayList<String> verifyStoresFilter(String city) {
 		ArrayList<String> al = new ArrayList<String>();
 
-		dr.findElement(search).sendKeys(city);
-		dr.findElement(filterbtn).click();
+		search.sendKeys(city);
+		filterbtn.click();
 
-		List<WebElement> elements = dr.findElements(storefilters);
+		List<WebElement> elements = storefilters;
 		
 		wait.until(ExpectedConditions.visibilityOfAllElements(elements));
 
@@ -82,26 +111,23 @@ public class StoreLocatorPage extends Base{
 	}
 
 	public void selectStoreFilters(String city) {
-		dr.findElement(search).sendKeys(city);
-		dr.findElement(filterbtn).click();
+		search.sendKeys(city);
+		filterbtn.click();
 
-		wait.until(ExpectedConditions.visibilityOfElementLocated(checkbox2));
-		wait.until(ExpectedConditions.visibilityOfElementLocated(checkbox4));
+		wait.until(ExpectedConditions.visibilityOf(checkbox2));
+		wait.until(ExpectedConditions.visibilityOf(checkbox4));
 
-		dr.findElement(checkbox2).click();
-		dr.findElement(checkbox4).click();
-		dr.findElement(donebtn).click();
+		checkbox2.click();
+		checkbox4.click();
+		donebtn.click();
 	}
-
-	
-
 	
 	public ArrayList<String> getStoreList() {
 		ArrayList<String> storesname = new ArrayList<String>();
 
-		wait.until(ExpectedConditions.visibilityOfElementLocated(storelist));
+		wait.until(ExpectedConditions.visibilityOfAllElements(storelist));
 
-		List<WebElement> elements = dr.findElements(storelist);
+		List<WebElement> elements = storelist;
 
 		for (WebElement ele : elements) {
 			storesname.add(ele.getText());
@@ -112,9 +138,9 @@ public class StoreLocatorPage extends Base{
 
 	public String storeInformationName() {
 		
-		wait.until(ExpectedConditions.visibilityOfElementLocated(store_name));
+		wait.until(ExpectedConditions.visibilityOf(store_name));
 
-		String storeName = dr.findElement(store_name).getText();
+		String storeName = store_name.getText();
 
 		storeName = storeName.replaceAll("[\\d.]", "");
 
@@ -126,8 +152,8 @@ public class StoreLocatorPage extends Base{
 
 	public String storeInformationNumber() {
 
-		wait.until(ExpectedConditions.visibilityOfElementLocated(phone));
-		return dr.findElement(phone).getText();
+		wait.until(ExpectedConditions.visibilityOf(phone));
+		return phone.getText();
 		
 	}
 
@@ -136,7 +162,7 @@ public class StoreLocatorPage extends Base{
 
 		ArrayList<String> contactmenu = new ArrayList<String>();
 
-		List<WebElement> elements = dr.findElements(contact);
+		List<WebElement> elements = contact;
 
 		for (WebElement ele : elements) {
 			contactmenu.add(ele.getText());
@@ -146,15 +172,16 @@ public class StoreLocatorPage extends Base{
 	}
 
 	public ArrayList<String> openDays() {
-		wait.until(ExpectedConditions.visibilityOfElementLocated(open_days_btn));
+		
+		wait.until(ExpectedConditions.visibilityOf(open_days_btn));
 
 		ArrayList<String> days = new ArrayList<String>();
 
-		dr.findElement(open_days_btn).click();
+		open_days_btn.click();
 
-		wait.until(ExpectedConditions.visibilityOfElementLocated(all_days));
+		//wait.until(ExpectedConditions.visibilityOfAllElements(all_days));
 
-		List<WebElement> elements = dr.findElements(all_days);
+		List<WebElement> elements = all_days;
 
 		for (WebElement ele : elements) {
 			days.add(ele.getText());
@@ -163,22 +190,22 @@ public class StoreLocatorPage extends Base{
 	}
 
 	public String getStoreAddress() {
-		wait.until(ExpectedConditions.visibilityOfElementLocated(storeAddress));
-		String store_address = dr.findElement(storeAddress).getText();
+		wait.until(ExpectedConditions.visibilityOf(storeAddress));
+		String store_address = storeAddress.getText();
 		return store_address;
 	}
 	
 	
 	public void visitStorePage()
 	{
-		wait.until(ExpectedConditions.visibilityOfElementLocated(visit_store_page));
-		dr.findElement(visit_store_page).click();
+		wait.until(ExpectedConditions.visibilityOf(visit_store_page));
+		visit_store_page.click();
 	}
 
 	public void getDirection() {
 
-		wait.until(ExpectedConditions.visibilityOfElementLocated(getDirection));
-		dr.findElement(getDirection).click();
+		wait.until(ExpectedConditions.visibilityOf(getDirection));
+		getDirection.click();
 	}
 
 }

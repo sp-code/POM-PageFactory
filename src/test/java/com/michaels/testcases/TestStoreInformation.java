@@ -20,8 +20,8 @@ public class TestStoreInformation extends Base{
 	public void getReady()
 	{
 		init();
-		slpage = new StoreLocatorPage(dr);
-		spage = new StorePage(dr);
+		slpage = new StoreLocatorPage();
+		spage = new StorePage();
 	}
 	
 	@Test(priority=1)
@@ -52,8 +52,6 @@ public class TestStoreInformation extends Base{
 		String storePhoneOnPage = spage.getPhoneNumber();
 		
 		Assert.assertEquals(number, storePhoneOnPage);
-		
-		
 	}
 	
 }

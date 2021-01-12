@@ -2,22 +2,27 @@ package com.michaels.pages;
 
 import java.util.ArrayList;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 import com.michaels.base.Base;
 
 public class StorePage extends Base{
 
-	WebDriver dr;
 	
-	By StoreName = By.xpath("//div[@class='address-block']/div[1]");
 	
-	By store_phone_number = By.xpath("//a[@class='ga_w2gi_lp']/span");
+	@FindBy(xpath="//div[@class='address-block']/div[1]")
+	WebElement StoreName;
 	
-	public StorePage(WebDriver dr)
+	
+	@FindBy(xpath="//a[@class='ga_w2gi_lp']/span")
+	WebElement store_phone_number;
+	
+	
+	public StorePage()
 	   {
-		   this.dr= dr;
+		   PageFactory.initElements(dr,this);
 	   }
 	
 	public String getStoreName()
@@ -26,7 +31,7 @@ public class StorePage extends Base{
 
 		dr.switchTo().window(tabs.get(1));
 		
-		return dr.findElement(StoreName).getText();
+		return StoreName.getText();
 	}
 	
 	public String getPhoneNumber()
@@ -35,7 +40,7 @@ public class StorePage extends Base{
 		
 		dr.switchTo().window(tabs.get(1));
 		
-		return dr.findElement(store_phone_number).getText();
+		return store_phone_number.getText();
 		
 		
 	}

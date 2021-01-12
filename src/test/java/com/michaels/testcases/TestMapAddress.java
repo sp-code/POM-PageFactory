@@ -1,6 +1,7 @@
 package com.michaels.testcases;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -17,8 +18,8 @@ public class TestMapAddress extends Base {
 	@BeforeMethod
 	public void getReady() {
 		init();
-		slpage = new StoreLocatorPage(dr);
-		gmppage = new GoogleMapPage(dr);
+		slpage = new StoreLocatorPage();
+		gmppage = new GoogleMapPage();
 	}
 
 	@Test(priority = 1)
@@ -32,5 +33,12 @@ public class TestMapAddress extends Base {
 		Assert.assertEquals(sent_address, true);
 
 	}
+	
+	@AfterMethod
+	public void terminate()
+	{
+		dr.quit();
+	}
+	
 
 }

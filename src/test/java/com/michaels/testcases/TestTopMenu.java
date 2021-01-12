@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 import com.michaels.base.Base;
 import com.michaels.pages.HomePage;
-import com.michaels.pages.StoreLocatorPage;
+
 
   public class TestTopMenu extends Base{
 	  
@@ -18,7 +18,7 @@ import com.michaels.pages.StoreLocatorPage;
 	public void getReady()
 	{
 		init();
-		hppage = new HomePage(dr);
+		hppage = new HomePage();
 	}
 	
 	@Test(priority=1)

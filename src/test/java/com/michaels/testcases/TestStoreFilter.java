@@ -1,7 +1,6 @@
 package com.michaels.testcases;
 
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -21,7 +20,7 @@ public class TestStoreFilter extends Base{
 	public void getReady()
 	{
 		init();
-		slpage = new StoreLocatorPage(dr);
+		slpage = new StoreLocatorPage();
 	}
 
 	@Test(priority=1)

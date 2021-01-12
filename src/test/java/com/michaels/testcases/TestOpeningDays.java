@@ -19,7 +19,7 @@ public class TestOpeningDays extends Base{
 	public void getReady()
 	{
 		init();
-		slpage = new StoreLocatorPage(dr);
+		slpage = new StoreLocatorPage();
 	}
 	
 	
